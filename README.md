@@ -8,16 +8,20 @@ Simple Sqoop Job module for Spring-XD
 Build the Hadoop job jar:
 
 	mvn clean install
-	
-Copy xd-sqoop-module-0.0.1-SNAPSHOT-job.jar into your ${XD_HOME}/xd/lib	
-	
-	cp target/xd-sqoop-module-0.0.1-SNAPSHOT-job.jar ${XD_HOME}/xd/lib/
 
-Copy the (sqoop.xml) module definition into ${XD_HOME}/xd/modules/jobs	
-	
-	cp src/main/resources/sqoop.xml ${XD_HOME}/xd/modules/job
+Set the environment variable `XD_HOME` to the installation directory <root-install-dir>\spring-xd\xd
 
-Copy the following Hadoop cluster configuration files into ${XD_HOME}/xd/config
+	export XD_HOME=<root-install-dir>/spring-xd/xd
+	
+Copy the result `xd-sqoop-module-0.0.1-SNAPSHOT-job.jar` into your ${XD_HOME}/lib	
+	
+	cp target/xd-sqoop-module-0.0.1-SNAPSHOT-job.jar ${XD_HOME}/lib/
+
+Copy the `sqoop.xml` module definition into ${XD_HOME}/modules/jobs	
+	
+	cp src/main/resources/sqoop.xml ${XD_HOME}/modules/job
+
+Copy the following Hadoop cluster configuration files into ${XD_HOME}/config
 	
 	core-site.xml
 	hdfs-site.xml
