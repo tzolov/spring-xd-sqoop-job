@@ -19,7 +19,7 @@
 	</bean>
 
 	<hadoop:jar-tasklet id="jar-tasklet" jar="file:${xd.home}/lib/${job_jar_name:xd-sqoop-module-0.0.1-SNAPSHOT-job.jar}" main-class="com.gopivotal.xd.sqoop.SqoopRunner">
-		<hadoop:arg value="${params}"/>
+		<hadoop:arg value="${command}"/>
 	</hadoop:jar-tasklet>
     
 	<batch:job id="job">
