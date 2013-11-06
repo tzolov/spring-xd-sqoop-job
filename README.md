@@ -30,7 +30,7 @@ Copy the following Hadoop cluster configuration files into ${XD_HOME}/xd/config
 
 Export data from HDFS to remote MySQL DB
 
-	xd:>job create --name sqoop_job --definition "sqoop --params='export --connect jdbc:mysql://your-db-hostname/target-db-name\
+	xd:>job create --name sqoop_job --definition "sqoop --command='export --connect jdbc:mysql://your-db-hostname/target-db-name\
 	--username db-username --password db-password --table target-table-name --export-dir /hdfs/source/folder/*.csv'"
 	xd:>stream create --name sqt1 --definition "trigger > job:sqoop_job"
   
