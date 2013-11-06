@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:hadoop="http://www.springframework.org/schema/hadoop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<hadoop:configuration resources="file:${xd.home}/config/core-site.xml,file:${xd.home}/config/hdfs-site.xml,file:${xd.home}/config/mapred-site.xml,file:${xd.home}/config/yarn-site.xml"/>
+
+	<!-- required since Hadoop Job is a class not an interface and we need to 
+		use a Job with step scope to access #{jobParameters['...']} -->
+	<bean class="org.springframework.batch.core.scope.StepScope">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<hadoop:jar-tasklet id="jar-tasklet" jar="file:${xd.home}/lib/${job_jar_name:xd-sqoop-module-0.0.1-SNAPSHOT-job.jar}" main-class="com.gopivotal.xd.sqoop.SqoopRunner">
+		<hadoop:arg value="${params}"/>
+	</hadoop:jar-tasklet>
+    
+	<batch:job id="job">
+		<batch:step id="mr-job">
+			<batch:tasklet ref="jar-tasklet" />
+		</batch:step>
+	</batch:job>
+
+</beans>
+
