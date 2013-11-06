@@ -17,7 +17,7 @@ Copy the result `xd-sqoop-module-0.0.1-SNAPSHOT-job.jar` into your `${XD_HOME}/l
 	
 	cp target/xd-sqoop-module-0.0.1-SNAPSHOT-job.jar `${XD_HOME}/lib`
 
-Copy the `sqoop.xml` module definition into ${XD_HOME}/modules/jobs	
+Copy the `sqoop.xml` module definition into `${XD_HOME}/modules/jobs`	
 	
 	cp src/main/resources/sqoop.xml ${XD_HOME}/modules/job
 
