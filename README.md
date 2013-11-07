@@ -1,9 +1,17 @@
 spring-xd-sqoop-job
 ===================
 
-Simple Sqoop Job module for Spring-XD
+Simple [Sqoop] Job module for [Spring-XD]. Works with [Pivotal HD] 1.0.1 and other 2.0.2-alpha based Hadoop distributions. 
 
-Works with Pivotal HD 1.0.1 and other 2.0.2-alpha based Hadoop distributions. 
+Example sqoop export usage:
+
+	xd:>job create --name <job-name> --definition "sqoop --command='export 
+	  	--connect jdbc:mysql://<db-hostname>/<target-db-name>
+	  	--table <target-table-name> 
+	  	--username <db-username> 
+	  	--password <db-password>
+	  	--export-dir /hdfs/source/folder/*.csv'"
+
 
 ## Build and Installation
 
@@ -59,15 +67,17 @@ The default operation is to transform these into a set of INSERT statements that
 
 Sample data export from HDFS to remote MySQL database:
 
-	xd:>job create --name sqoop_job --definition "sqoop --command='export 
+	xd:>job create --name hdfsToDbExport --definition "sqoop --command='export 
 	  --connect jdbc:mysql://your-db-hostname/target-db-name
 	  --username db-username --password db-password 
 	  --table target-table-name 
 	  --export-dir /hdfs/source/folder/*.csv'"
 	
-	xd:>stream create --name sqt1 --definition "trigger > job:sqoop_job"
+	xd:>stream create --name exportTrigger --definition "trigger > job:hdfsToDbExport"
   
   
   
-  
+[Sqoop]: http://sqoop.apache.org/docs/1.4.2/SqoopUserGuide.html  
 [Sqoop Export]: http://sqoop.apache.org/docs/1.4.2/SqoopUserGuide.html#_literal_sqoop_export_literal
+[Spring-XD]: http://projects.spring.io/spring-xd/
+[Pivotal HD]: http://www.gopivotal.com/pivotal-products/data/pivotal-hd
