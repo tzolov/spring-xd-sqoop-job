@@ -3,6 +3,8 @@ spring-xd-sqoop-job
 
 Simple Sqoop Job module for Spring-XD
 
+Works with Pivotal HD 1.0.1 and other 2.0.2-alpha based Hadoop distributions. 
+
 ## Build and Installation
 
 Set the environment variable `XD_HOME` to the Spring-XD installation directory
@@ -27,8 +29,27 @@ Copy the following Hadoop cluster configuration files into `${XD_HOME}/config`
 	hdfs-site.xml
 	mapred-site.xml
 	yarn-site.xml
+	
 
 ## Usage
+
+#### Start Spring-XD
+
+Start the admin
+
+	${XD_HOME}/bin/xd-admin --hadoopDistro phd1
+
+Start container (in separate shell)	
+
+	${XD_HOME}/bin/xd-container --hadoopDistro phd1
+
+Alternatively instead of admin/container you can run xd-standalone `${XD_HOME}/bin/xd-standalone --hadoopDistro phd1`
+
+Note that the xd-container (or xd-standalone) node must run Java 6! Sqoop compiles the MapRed job on the fly on the container node. 
+
+Start xd-shell (in separate shell)
+
+	${XD_HOME}/../shell/bin/xd-shell --hadoopDistro phd1
 
 #### [Sqoop Export][]
 The export tool exports a set of files from HDFS back to an RDBMS. The target table must already exist in the database. The input files are read and parsed into a set of records according to the user-specified delimiters.
